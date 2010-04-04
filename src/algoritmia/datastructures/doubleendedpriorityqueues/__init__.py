@@ -1,0 +1,2 @@
+from algoritmia.datastructures.doubleendedpriorityqueues.interfaces import IDoubleEndedPriorityQueue
+from algoritmia.datastructures.doubleendedpriorityqueues.intervalheap import IntervalHeap, MinMaxIntervalHeap, MaxMinIntervalHeap

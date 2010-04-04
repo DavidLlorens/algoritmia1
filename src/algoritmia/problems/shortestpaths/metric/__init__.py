@@ -1,0 +1,1 @@
+from algoritmia.problems.shortestpaths.metric.astar import MetricDigraphShortestPaths
