@@ -125,7 +125,7 @@ class AdjacencyDigraph(IEditableDigraph): #[adjacencyctor #[]props #[]props2 #[]
 
     def _add_edge(self, edge: "(T, T)"):
         if edge[0] not in self._succs: self._add_vertex(edge[0])
-        if edge[1] not in self._succs: self._add_vertex(edge[0])
+        if edge[1] not in self._succs: self._add_vertex(edge[1])
         self._succs[edge[0]].add(edge[1])
         if not self.is_directed: self._succs[edge[1]].add(edge[0])
 
@@ -169,7 +169,7 @@ class AdjacencyMatrixDigraph(AdjacencyDigraph): #[matrix
         if v not in self._succs:
             if self._succs.capacity <= v: self._succs.capacity = v + 1
             self._succs[v] = self.createSet(self.V)
-            if self._succs[0].capacity <= v:
+            if self._succs[0].capacity <= v: #posible bug
                 for u in self._succs:
                     self._succs[u].capacity = v + 1 #]matrix
 
