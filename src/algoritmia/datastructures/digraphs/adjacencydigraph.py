@@ -4,15 +4,17 @@ from algoritmia.datastructures.maps import IMap, IntKeyMap
 from algoritmia.datastructures.sets import IntSet, ListSet, LinkedListSet
 from itertools import chain
 
+
+redim_do_nothing = lambda old, maxkey: old
+ 
 class AdjacencyDigraph(IEditableDigraph): #[adjacencyctor #[]props #[]props2 #[]vertexedgeset #[]rest
     def __init__(self, V: "Iterable<T>"=[], 
                  E: "Iterable<(T, T)> or IMap<T, Iterable<T>>"=[], 
                  directed: "bool"=True,
                  createMap: "Iterable<T> -> IMap<T, ISet<T>>"=lambda V: dict(), 
                  createSet: "Iterable<T> -> ISet<T>"=lambda V: set(),  
-                 redimMap:"IMap<T,ISet<T>>,T -> IMap<T,ISet<T>>"
-                    =lambda anIMap, maxkey: anIMap,
-                 redimSet:"ISet<T>, T -> ISet<T>"=lambda aSet, maxkey: aSet):
+                 redimMap:"IMap<T,ISet<T>>,T -> IMap<T,ISet<T>>" = redim_do_nothing,
+                 redimSet:"ISet<T>, T -> ISet<T>"=redim_do_nothing):
         self.createMap = createMap
         self.createSet = createSet
         self.redimMap = redimMap
@@ -112,10 +114,12 @@ class AdjacencyDigraph(IEditableDigraph): #[adjacencyctor #[]props #[]props2 #[]
 
     def _add_vertex(self, v: "T"):
         if v not in self._succs:
-            self.redimMap(self._succs, v)
+            if self.redimMap!=redim_do_nothing:
+                self.redimMap(self._succs, v)
             self._succs[v] = self.createSet(self.V)
-            for u in self._succs:
-                self.redimSet(self._succs[u], v)
+            if self.redimSet!=redim_do_nothing:
+                for u in self._succs:
+                    self.redimSet(self._succs[u], v)
 
     def _remove_vertex(self, v: "T"):
         if v in self._succs:
@@ -205,6 +209,8 @@ class InvAdjacencyDigraph(AdjacencyDigraph): #[inv
             del self._succs[v]
 
     def _add_edge(self, edge: "(T, T)"):
+        if edge[0] not in self._succs: self._add_vertex(edge[0])
+        if edge[1] not in self._succs: self._add_vertex(edge[1])
         self._succs[edge[0]].add(edge[1])
         if self._directed: self._preds[edge[1]].add(edge[0])
         else: self._succs[edge[1]].add(edge[0])
