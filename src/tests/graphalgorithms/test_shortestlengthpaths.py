@@ -22,8 +22,13 @@ class TestShortest(unittest.TestCase):
 
     def test_bfs_shortest_path(self):
         self.assertEqual(self.bfsp.shortest_path(self.iberia, "Gandia", "Cullera"), ["Gandia", "Cullera"])
-        self.assertEqual(self.bfsp.shortest_path(self.iberia, "València", "Daroca"), 
-                         ["València", "Sagunt", "Segorbe", "Teruel", "Monreal del Campo", "Daroca"])
+        
+        sol = self.bfsp.shortest_path(self.iberia, "València", "Daroca")
+        for i in range(len(sol)-1): self.assertEqual(sol[i+1]  in self.iberia.succs(sol[i]), True)
+        self.assertEqual(sol[0]=="València" and sol[-1]=="Daroca", True)
+        self.assertEqual(len(sol), len(["València", "Sagunt", "Segorbe", "Teruel", "Monreal del Campo", "Daroca"]))
+        
+        
         self.assertEqual(self.bfsp.shortest_path(self.unconnected, 0, 4), None)
         self.assertEqual(self.bfsp.shortest_path(self.unconnected, 0, 6), [0, 2, 6])
         
@@ -31,10 +36,16 @@ class TestShortest(unittest.TestCase):
         t = self.bfsp.some_to_some_backpointers(self.iberia, ['Gandia'], self.iberia.V)
         bp = dict(t)
         self.assertEqual(Backtracer(bp).backtrace('Cullera'), ["Gandia", "Cullera"])
+        
         t = self.bfsp.one_to_all_backpointers(self.iberia, 'València')
         bp = dict(t)
-        self.assertEqual(Backtracer(bp).backtrace('Daroca'), 
-                         ["València", "Sagunt", "Segorbe", "Teruel", "Monreal del Campo", "Daroca"])
+        sol = Backtracer(bp).backtrace('Daroca')
+        for i in range(len(sol)-1): self.assertEqual(sol[i+1]  in self.iberia.succs(sol[i]), True)
+        self.assertEqual(sol[0]=="València" and sol[-1]=="Daroca", True)
+        self.assertEqual(len(sol), 
+                         len(["València", "Sagunt", "Segorbe", "Teruel", "Monreal del Campo", "Daroca"]))
+        
+        
         t = self.bfsp.one_to_all_backpointers(self.unconnected, 0)
         bp = dict(t)
         self.assertEqual(Backtracer(bp).backtrace(4), None)
@@ -44,13 +55,26 @@ class TestShortest(unittest.TestCase):
         t = self.bfsp.some_to_some_backpointers(self.iberia, ['Gandia', 'Vigo'], self.iberia.V)
         bp = dict(t)
         self.assertEqual(Backtracer(bp).backtrace('Cullera'), ["Gandia", "Cullera"])
-        self.assertEqual(Backtracer(bp).backtrace('Ourense'), ["Vigo", "Ribadavia", "Ourense"])
+        sol = Backtracer(bp).backtrace('Ourense')
+        for i in range(len(sol)-1): self.assertEqual(sol[i+1]  in self.iberia.succs(sol[i]), True)
+        self.assertEqual(len(sol), len(["Vigo", "Ribadavia", "Ourense"]))
+        
+        
         t = self.bfsp.some_to_some_backpointers(self.iberia, ['València', 'Madrid'], self.iberia.V)
         bp = dict(t)
-        self.assertEqual(Backtracer(bp).backtrace('Daroca'), 
-                         ["València", "Sagunt", "Segorbe", "Teruel", "Monreal del Campo", "Daroca"])
-        self.assertEqual(Backtracer(bp).backtrace('Cuenca'), 
-                         ["Madrid", "Arganda del Rey", "Tarancón", "Cuenca"])
+        sol = Backtracer(bp).backtrace('Daroca')
+        self.assertEqual(sol[-1]=="Daroca", True)
+        for i in range(len(sol)-1): self.assertEqual(sol[i+1]  in self.iberia.succs(sol[i]), True)
+        self.assertEqual(len(sol), 
+                         len(["València", "Sagunt", "Segorbe", "Teruel", "Monreal del Campo", "Daroca"]))
+        
+        sol = Backtracer(bp).backtrace('Cuenca')
+        self.assertEqual(sol[-1]=="Cuenca", True)
+        for i in range(len(sol)-1): self.assertEqual(sol[i+1]  in self.iberia.succs(sol[i]), True)
+        self.assertEqual(len(sol), 
+                         len(["Madrid", "Arganda del Rey", "Tarancón", "Cuenca"]))
+        
+        
         t = self.bfsp.some_to_some_backpointers(self.unconnected, [0, 1], self.unconnected.V)
         bp = dict(t)
         self.assertEqual(Backtracer(bp).backtrace(4), None)
