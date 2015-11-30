@@ -25,23 +25,40 @@ class QuickSelector(ISelector): #[select1
 class MedianOf5Selector(object): #[select2
     def __init__(self, threshold: "int"=10):
         self.threshold = threshold
+           
+    def _median_of_5(self, v: "IList<T>", i: "int") -> "T": # utiliza 6 comparaciones
+        # Asignamos etiquetas a los 4 primeros
+        a, b, c, d = v[i], v[i+1], v[i+2], v[i+3]
+        # Nos aseguramos de que a<=b y c<=d
+        if a > b: 
+            a, b = b, a
+        if c > d: 
+            c, d = d, c
         
-    def _median_of_5(self, a: "IList<T>", i: "int") -> "T":
-        u, v, w, x = a[i], a[i+1], a[i+2], a[i+3]
-        if v > u: 
-            u, v = v, u
-        if x > w: 
-            w, x = x, w
-        if u < w:
-            u = a[i+4]
-            if v > u: u, v = v, u
+        # Descartamos el menor de los 4 (será a o c)
+        # El mayor de a y c se guarda en c, si se intercambian, se intercambian tambien b y d
+        # a queda libre
+        if a > c:
+            b, d = d, b  # se intercambian si a>c
+            c = a        # en c se guarda a (a queda libre), si a>c
+        
+        # Sobreescribimos el descartado, a, con el quinto número
+        a = v[i+4]
+        
+        # Nos aseguramos, otra vez, que a<=b 
+        if a > b: 
+            a, b = b, a
+            
+        # Descartamos, otra vez, el menor de los nuevos 4 (será a o c). 
+        # De los tres que quedarán, el siguiente mínimo será la mediana   
+        if a > c:
+            # descartamos c
+            # la mediana será el menor de a, b y d, dado que a<=b, será el menor de a y d
+            return min(a,d)
         else:
-            w = a[i+4]
-            if w > x: w, x = x, w
-        if u < w:
-            return v if v < w else w
-        else:
-            return x if x < u else u
+            # descartamos a
+            # la mediana será el menor de c, b y d, dado que c<=d, será el menor de c y b
+            return min(c,b)
         
     def select(self, a: "IList<T>", k: "int"):  
         if not (0 <= k < len(a)): raise IndexError(repr(k))
