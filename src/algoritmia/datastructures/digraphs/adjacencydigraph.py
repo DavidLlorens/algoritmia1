@@ -83,7 +83,8 @@ class AdjacencyDigraph(IEditableDigraph): #[adjacencyctor #[]props #[]props2 #[]
                         if v not in prev: yield(u, v)
 
         def __len__(self) -> "int":
-            return sum(len(self.G._succs[u]) for u in self.G._succs)
+            num_succs = sum(len(self.G._succs[u]) for u in self.G._succs)
+            return num_succs if self.G.is_directed else num_succs//2
 
         def add(self, u: "T or (T, T)", v: "T or None"=None):
             if v == None: (u,v) = u

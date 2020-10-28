@@ -1,6 +1,6 @@
 #coding: latin1
 
-from time import clock
+from time import perf_counter as clock
 
 infinity = float("+inf") #[]infinity
 
