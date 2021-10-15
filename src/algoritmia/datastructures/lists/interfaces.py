@@ -1,4 +1,5 @@
-from collections import Sized, Iterable, Container
+from collections.abc import Container
+from collections import Iterable, Sized
 from abc import abstractmethod
 
 class IList(Sized, Iterable, Container): #[ilist

@@ -1,5 +1,6 @@
 #coding: latin1
-from collections import Container, Iterable, Sized #[full 
+from collections.abc import Container
+from collections import Iterable, Sized #[full
 
 class RangeSet(Container, Iterable, Sized):
     def __init__(self, min: "int", max: "int"):
