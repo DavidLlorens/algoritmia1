@@ -9,7 +9,7 @@ Utilizada en dos asignaturas de la Universitat Jaume I de Castelló (www.uji.es)
 ##  Contenido
 
 Estructuras de datos: 
-  * Colas (FIFO y LIFO)
+  * Colas (Fifo/Lifo)
   * Listas enlazadas (LinkedList)
   * Grafos (UndirectedGraph, Digraph)
   * Montículos(MinHeap/MaxHeap)
@@ -17,9 +17,9 @@ Estructuras de datos:
   * Conjuntos disjuntos (MFSet).
 
 Algoritmos y esquemas algorítmicos:
-  * Algoritmos sobre grafos: recorridos, MST, componentes conexos, camino más corto, ...
+  * Algoritmos sobre grafos: recorridos, MST, componentes conexos, camino más corto, Dijkstra, ...
   * Un esquema para *búsqueda con retroceso*
-  * Un esquema para *ramificaicón y acotación*
+  * Un esquema para *ramificación y acotación*
   * Esquemas para *divide y vencerás* y *reduce y venceras*
 
 Problemas:
