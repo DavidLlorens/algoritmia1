@@ -1,5 +1,5 @@
 #coding: latin1
-from collections import Iterable, Sized
+from collections.abc import Iterable, Sized
 from abc import abstractmethod 
 
 class IMergeFindSet(Iterable, Sized): #[abstract

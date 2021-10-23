@@ -1,5 +1,5 @@
 from algoritmia.datastructures.mergefindsets.naivemergefindset import NaiveMergeFindSet
-from collections import Sequence
+from collections.abc import Sequence
 
 class RankUnionMFset(NaiveMergeFindSet): #[rankunion
     def __init__(self, sets: "Iterable<Iterable<T>>"=[],  

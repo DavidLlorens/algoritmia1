@@ -1,6 +1,6 @@
 #coding: latin1
 from algoritmia.datastructures.maps.interfaces import IMap
-from collections import Callable
+from collections.abc import Callable
 
 class WeightingFunction(IMap, Callable): #[weighting
     def __init__(self, data: "Iterable<((T, T), K)> or IMap<(T, T), K>" =[], #?data?¶data?

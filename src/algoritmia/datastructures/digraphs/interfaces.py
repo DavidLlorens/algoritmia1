@@ -1,6 +1,5 @@
-from collections.abc import Container
-from collections import Iterable, Sized
-from abc import abstractmethod, abstractproperty, ABCMeta 
+from collections.abc import Container, Iterable, Sized
+from abc import abstractmethod, abstractproperty, ABCMeta
 
 class IDigraph(metaclass=ABCMeta): #[abstract1
     @abstractproperty

@@ -1,6 +1,6 @@
 #coding: latin1
 from algoritmia.datastructures.maps import IMap
-from collections import Sequence, Iterable, Sized
+from collections.abc import Sequence, Iterable, Sized
 
 class IntKeyMap(IMap): #[intkey
     def __init__(self, data: "Iterable<(int, T)> or IMap<(int, T)>"=[], #?data?¶data? 

@@ -1,7 +1,7 @@
 #coding: latin1
 
 from abc import abstractmethod 
-from collections import Sized, Iterable
+from collections.abc import Sized, Iterable
 
 class IQueue(Sized, Iterable): #[iqueue
     @abstractmethod

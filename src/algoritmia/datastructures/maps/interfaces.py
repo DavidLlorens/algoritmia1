@@ -1,5 +1,4 @@
-from collections.abc import Container
-from collections import Iterable, Sized
+from collections.abc import Container, Iterable, Sized
 from abc import abstractmethod
 
 class IMap(Container, Iterable, Sized): #[imap

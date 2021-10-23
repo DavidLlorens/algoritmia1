@@ -1,5 +1,5 @@
 from algoritmia.datastructures.maps.interfaces import IMap
-from collections import Sized, Iterable
+from collections.abc import Sized, Iterable
 from algoritmia.datastructures.lists.linkedlist import LinkedList
 
 class HashMap(IMap): #[hashmap

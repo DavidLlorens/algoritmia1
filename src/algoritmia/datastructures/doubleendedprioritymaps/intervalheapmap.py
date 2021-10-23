@@ -1,6 +1,6 @@
 from algoritmia.datastructures.doubleendedprioritymaps.interfaces import IDoubleEndedPriorityDict
 from algoritmia.datastructures.maps.interfaces import IMap
-from collections import Sequence
+from collections.abc import Sequence
 
 class MinMaxIntervalHeapMap(IDoubleEndedPriorityDict): #[minmaxpdict
     def __init__(self, data: "Iterable<(K, T)> or IMap<K, T>"=[], capacity: "int"=0, 

@@ -1,5 +1,5 @@
 from algoritmia.datastructures.digraphs.interfaces import IEditableDigraph, IEditableVertexSet, IEditableEdgeSet
-from collections import Sequence
+from collections.abc import Sequence
 from algoritmia.datastructures.maps import IMap, IntKeyMap
 from algoritmia.datastructures.sets import IntSet, ListSet, LinkedListSet
 from itertools import chain

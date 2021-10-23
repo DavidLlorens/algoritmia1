@@ -1,6 +1,6 @@
 from algoritmia.datastructures.prioritymaps.interfaces import IPriorityMap
 from algoritmia.datastructures.maps import IMap
-from collections import Sequence 
+from collections.abc import Sequence
 from itertools import chain, repeat
  
 class HeapMap(IPriorityMap): #[pdict

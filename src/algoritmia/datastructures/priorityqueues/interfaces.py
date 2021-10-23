@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from collections import Sized
+from collections.abc import Sized
 
 class IPriorityQueue(Sized): #[abstract
     @abstractmethod

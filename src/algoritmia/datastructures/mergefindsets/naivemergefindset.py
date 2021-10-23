@@ -1,5 +1,5 @@
 from algoritmia.datastructures.mergefindsets import IMergeFindSet
-from collections import Sequence
+from collections.abc import Sequence
 
 class NaiveMergeFindSet(IMergeFindSet): #[naif
     def __init__(self, sets: "Iterable<Iterable<T>>"=[], 

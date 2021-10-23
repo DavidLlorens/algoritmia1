@@ -1,5 +1,5 @@
 from algoritmia.datastructures.priorityqueues.interfaces import IPriorityQueue
-from collections import Iterable
+from collections.abc import Iterable
 from itertools import chain, repeat #[]init
 
 class Heap(IPriorityQueue, Iterable): #[]opt #[]add #[]heapify #[init #[]utils 
