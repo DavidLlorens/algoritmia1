@@ -11,11 +11,16 @@ class WeightingFunction(IMap, Callable): #[weighting
         self._map = self.createMap(data)
         self.symmetrical = symmetrical
         if symmetrical:
+            duplicates = set()
             for (u, v) in self._map.keys():
                 if (v, u) in self._map:
                     if self._map[u, v] != self._map[v, u]:
                         raise ValueError("{!r} is different from {!r}".format((u,v), (v,u)))
-                    if v != u: del self._map[v, u]
+                    if v != u and (u, v) not in duplicates:
+                        duplicates.add((v, u))
+
+            for dup in duplicates:
+                self._map.pop(dup)
 
     def __contains__(self, key: "(T, T)") -> "bool":
         return key in self._map
