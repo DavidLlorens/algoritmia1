@@ -205,9 +205,16 @@ class TestWeightingFunction(unittest.TestCase):
         self.assertEqual(self.sym(1,1), 2)
         self.assertEqual(self.sym(1,2), 3)
         self.assertEqual(self.sym(2,1), 3)
+        self.assertEqual(self.sym((2,1)), 3)
+        self.assertEqual(self.sym[2,1], 3)
+        self.assertEqual(self.sym[1,2], 3)
+        self.assertRaises(KeyError, self.sym.__getitem__, (1, 3))
+        self.assertRaises(KeyError, self.sym.__call__, (1,3))
         self.assertEqual(self.asym(0,0), 1)
         self.assertEqual(self.asym(1,1), 2)
         self.assertEqual(self.asym(1,2), 3)
+        self.assertEqual(self.asym[1,2], 3)
+        self.assertRaises(KeyError, self.asym.__getitem__, (2, 1))
         self.assertRaises(KeyError, self.asym.__call__, (2,1))
 
 if __name__ == "__main__":

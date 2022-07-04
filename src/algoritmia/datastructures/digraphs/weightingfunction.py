@@ -4,7 +4,7 @@ from collections.abc import Callable
 
 class WeightingFunction(IMap, Callable): #[weighting
     def __init__(self, data: "Iterable<((T, T), K)> or IMap<(T, T), K>" =[], #?data?¶data?
-                       symmetrical: "bool"=False, 
+                       symmetrical: "bool"=False,
                        createMap: "Iterable<((T, T), K)> -> IMap<(T, T), K>"
                             =lambda keyvalues: dict(keyvalues)): #?symm?»symm?
         self.createMap = createMap
@@ -26,7 +26,7 @@ class WeightingFunction(IMap, Callable): #[weighting
     def __setitem__(self, key: "(T, T)", value: "K") -> "K":
         self._map[key] = value
         return value
-    
+
     def get(self, key: "(T, T)", default: "K") -> "K":
         return self._map.get(key, default)
 
@@ -43,16 +43,20 @@ class WeightingFunction(IMap, Callable): #[weighting
         return self._map.items()
 
     def __getitem__(self, key: "(T, T)") -> "K":
-        return self._map[key]
-    
+        u, v = key
+        if (u, v) in self._map:
+            return self._map[u, v]
+        elif self.symmetrical:
+            return self._map[v, u]
+        raise KeyError(repr((u, v)))
+
     def __iter__(self) -> "Iterable<(T, T)>":
         return iter(self._map)
-    
+
     def __len__(self) -> "int":
         return len(self._map)
-    
+
     def __call__(self, u: "T or (T, T)", v: "T or None"=None) -> "K":
-        if v == None: u, v = u
-        if (u,v) in self._map: return self._map[u,v]
-        elif self.symmetrical: return self._map[v,u]
-        raise KeyError(repr((u,v))) #]weighting
+        if v is None:
+            u, v = u
+        return self.__getitem__((u, v))
