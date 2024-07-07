@@ -25,7 +25,7 @@ cov.start()
 loaded = set()
 suite = unittest.TestSuite()
 for module in test_paths:
-    mod = importlib.import_module(''.join(module.split(".")[:-1]).replace("\\", "."))
+    mod = importlib.import_module(''.join(module.split(".")[:-1]).replace(os.sep, "."))
     exec("import {}".format(mod.__name__))
     for c in dir(mod):
         if c.startswith("Test"):
